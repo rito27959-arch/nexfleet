@@ -9,9 +9,8 @@ class AppConfig {
 
   static const String _envApi = String.fromEnvironment('API_URL');
 
-  /// Serveur par défaut : IP du PC sur le réseau du téléphone (hotspot).
-  /// Docs : IP du PC via `hostname -I`. En ligne : URL Render/tunnel.
-  static const String _defaultApi = 'http://172.20.10.6:5000';
+  /// Serveur de production hébergé sur Render (gratuit).
+  static const String _defaultApi = 'https://nexfleet-backend.onrender.com';
 
   static String get baseUrl {
     if (_envApi.isNotEmpty) return _envApi;
