@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}SQL{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h3>Éditeur SQL</h3><p>Exécutez des requêtes sur la base NexFleet. Les SELECT/PRAGMA sont en lecture seule ; les autres instructions modifient la base.</p></div>
+</div>
+<div class="panel glass">
+  <textarea id="sql-input" class="sql-input" spellcheck="false" placeholder="SELECT * FROM vehicles LIMIT 50;">SELECT * FROM vehicles LIMIT 50;</textarea>
+  <div class="toolbar" style="margin-top:12px">
+    <button class="btn btn-primary btn-sm" id="sql-run">▶ Exécuter</button>
+    <button class="btn btn-ghost btn-sm" id="sql-clear">Effacer</button>
+  </div>
+  <div id="sql-result"></div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+# Secrets
+backend/.secret
+*.secret
+
+# Environnement virtuel
+.venv/
+.venv2/
+
+# Base de données & fichiers générés
+data/*
+!data/parc.db
+uploads/
+imports/
+__pycache__/
+*.pyc
+
+# Journaux serveur
+server*.log
+
+# Node
+node_modules/
+
+# Divers
+.DS_Store
+Thumbs.db
+nul
+file_*.png

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Utilisateurs{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h3>Utilisateurs NexFleet</h3><p>Comptes de l'application : création, rôles, mots de passe. Authentification en JWT (mêmes règles que l'application).</p></div>
+  <div class="page-actions">
+    <button class="btn btn-primary btn-sm" data-console="new-user">+ Nouvel utilisateur</button>
+  </div>
+</div>
+
+<div class="table-card glass">
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>ID</th><th>Utilisateur</th><th>E-mail</th><th>Rôle</th><th>Créé le</th><th style="text-align:right">Actions</th></tr></thead>
+      <tbody>
+        {% for u in users %}
+        <tr>
+          <td class="td-mono">{{ u.id }}</td>
+          <td class="td-strong">{{ u.username }}</td>
+          <td>{{ u.email }}</td>
+          <td>{% if u.role == 'admin' %}<span class="badge badge-info">admin</span>{% else %}<span class="badge badge-muted">user</span>{% endif %}</td>
+          <td class="td-dim">{{ u.created_at }}</td>
+          <td style="text-align:right">
+            <div class="row-actions">
+              <button class="mini-btn" title="Rôle / mot de passe" data-console="edit-user" data-user='{{ u|tojson }}'>✏️</button>
+              <button class="mini-btn danger" title="Supprimer" data-console="del-user" data-user='{{ u|tojson }}'>🗑️</button>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6"><div class="empty"><div class="empty-ico">👤</div><p>Aucun utilisateur.</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

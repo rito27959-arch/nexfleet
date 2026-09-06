@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Connexions{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h3>Connexions</h3><p>Configuration des connexions et de l'authentification, comme dans un dashboard Supabase/Firebase.</p></div>
+</div>
+
+<div class="dash-grid">
+  <div class="panel glass">
+    <div class="panel-title">Base de données</div>
+    <div class="kv"><small>Fichier</small><code>{{ db_path }}</code></div>
+    <div class="kv"><small>Console</small><code>{{ console_db }}</code></div>
+    <div class="kv"><small>Type</small><code>SQLite (bibliothèque standard)</code></div>
+  </div>
+  <div class="panel glass">
+    <div class="panel-title">Authentification NexFleet</div>
+    <div class="kv"><small>Méthode</small><code>JWT (HS256) — durée 7 jours</code></div>
+    <div class="kv"><small>Mots de passe</small><code>PBKDF2-SHA256 (Werkzeug)</code></div>
+    <div class="kv"><small>Clé secrète</small><code>backend/.secret (masquée)</code></div>
+    <div class="toolbar" style="margin-top:14px">
+      <button class="btn btn-danger btn-sm" id="rotate-secret">🔄 Régénérer la clé JWT</button>
+    </div>
+    <p class="hint">Régénérer la clé expire toutes les sessions NexFleet en cours. Les utilisateurs devront se reconnecter.</p>
+  </div>
+</div>
+
+<div class="panel glass" style="margin-top:18px">
+  <div class="panel-title">Points d'entrée</div>
+  <div class="kv"><small>API NexFleet</small><code>http://127.0.0.1:5000/api/...</code></div>
+  <div class="kv"><small>Console</small><code>http://127.0.0.1:5001/</code></div>
+  <div class="kv"><small>En-tête d'authentification</small><code>Authorization: Bearer &lt;jwt&gt;</code></div>
+</div>
+{% endblock %}

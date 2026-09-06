@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Table {{ table }}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h3>Table : {{ table }}</h3><p>{{ total }} ligne(s) · {{ cols|length }} colonne(s)</p></div>
+  <div class="page-actions">
+    <button class="btn btn-primary btn-sm" data-console="new-row" data-table="{{ table }}" data-cols='{{ cols|tojson }}'>+ Nouvelle ligne</button>
+    <a class="btn btn-ghost btn-sm" href="{{ url_for('tables_page') }}">← Tables</a>
+  </div>
+</div>
+
+<form class="toolbar" method="get">
+  <div class="search-wrap"><input name="q" value="{{ q }}" placeholder="Rechercher dans la table…"></div>
+  <button class="btn btn-ghost btn-sm" type="submit">Rechercher</button>
+</form>
+
+<div class="table-card glass">
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr>{% for c in cols %}<th>{{ c.name }}</th>{% endfor %}<th style="text-align:right">Actions</th></tr></thead>
+      <tbody>
+        {% for r in rows %}
+        <tr data-row='{{ r|tojson }}'>
+          {% for c in cols %}<td class="cell-preview">{{ r.get(c.name, '') }}</td>{% endfor %}
+          <td style="text-align:right">
+            <div class="row-actions">
+              <button class="mini-btn" title="Modifier" data-console="edit-row" data-table="{{ table }}" data-cols='{{ cols|tojson }}' data-row='{{ r|tojson }}'>✏️</button>
+              <button class="mini-btn danger" title="Supprimer" data-console="del-row" data-table="{{ table }}" data-id="{{ r['id'] }}">🗑️</button>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="{{ cols|length + 1 }}"><div class="empty"><div class="empty-ico">📭</div><p>Aucune ligne dans cette table.</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="pager">
+  <span class="panel-sub">Page {{ page }} / {{ pages }}</span>
+  {% if page > 1 %}<a class="btn btn-ghost btn-sm" href="{{ url_for('table_page', table=table, page=page-1, q=q) }}">← Précédent</a>{% endif %}
+  {% if page < pages %}<a class="btn btn-ghost btn-sm" href="{{ url_for('table_page', table=table, page=page+1, q=q) }}">Suivant →</a>{% endif %}
+</div>
+{% endblock %}

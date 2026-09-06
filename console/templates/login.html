@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Connexion{% endblock %}
+{% block content %}
+<div class="login-wrap">
+  <div class="login-card glass">
+    <div class="brand big">
+      <div class="brand-ico">🛰️</div>
+      <div><strong>NexFleet Console</strong><small>Gestion de la base et des connexions</small></div>
+    </div>
+    {% if need_bootstrap %}
+    <p class="hint">Aucun administrateur console détecté. Créez le compte administrateur pour démarrer.</p>
+    <form id="frm-bootstrap">
+      <label>Nom d'utilisateur</label>
+      <input name="username" required minlength="3" autocomplete="off">
+      <label>Mot de passe</label>
+      <input name="password" type="password" required minlength="8" autocomplete="new-password">
+      <label>Confirmation</label>
+      <input name="confirm" type="password" required minlength="8" autocomplete="new-password">
+      <button class="btn btn-primary btn-block" type="submit">Créer l'administrateur</button>
+    </form>
+    {% else %}
+    {% if error %}<div class="alert-error">{{ error }}</div>{% endif %}
+    <form id="frm-login" method="post" action="{{ url_for('do_login') }}">
+      <label>Nom d'utilisateur</label>
+      <input name="username" required autocomplete="username">
+      <label>Mot de passe</label>
+      <input name="password" type="password" required autocomplete="current-password">
+      <button class="btn btn-primary btn-block" type="submit">Se connecter</button>
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

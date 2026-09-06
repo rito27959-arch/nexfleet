@@ -1,0 +1,5 @@
+package com.nexfleet.nexfleet_app
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()

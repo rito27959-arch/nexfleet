@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Tables{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h3>Tables</h3><p>Explorateur de la base NexFleet — comme le Table Editor de Supabase.</p></div>
+</div>
+<div class="panel glass">
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>Table</th><th>Ouvrir</th></tr></thead>
+      <tbody>
+        {% for t in tables %}
+        <tr><td class="td-strong">{{ t }}</td><td><a class="btn btn-ghost btn-sm" href="{{ url_for('table_page', table=t) }}">Explorer →</a></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

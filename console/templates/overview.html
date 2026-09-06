@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Vue d'ensemble{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h3>Vue d'ensemble</h3><p>État de la base de données NexFleet et du serveur de données.</p></div>
+  <div class="page-actions">
+    <a class="btn btn-ghost btn-sm" href="{{ url_for('backups_page') }}">💾 Sauvegarder</a>
+    <a class="btn btn-primary btn-sm" href="{{ url_for('sql_page') }}">⚡ Lancer SQL</a>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card glass"><div class="stat-icon">💾</div><div class="stat-value">{{ '%.1f'|format(db_size/1024/1024) }} Mo</div><div class="stat-label">Taille de la base</div></div>
+  <div class="stat-card glass"><div class="stat-icon">🗃️</div><div class="stat-value">{{ tables|length }}</div><div class="stat-label">Tables</div></div>
+  <div class="stat-card glass"><div class="stat-icon">👤</div><div class="stat-value">{{ users_n }}</div><div class="stat-label">Utilisateurs NexFleet</div></div>
+  <div class="stat-card glass"><div class="stat-icon">🚗</div><div class="stat-value">{{ vehicles_n }}</div><div class="stat-label">Véhicules</div></div>
+  <div class="stat-card glass"><div class="stat-icon">📜</div><div class="stat-value">{{ audit_n }}</div><div class="stat-label">Événements d'audit</div></div>
+</div>
+
+<div class="panel glass">
+  <div class="panel-title">Tables de la base</div>
+  <div class="panel-sub">Nombre de lignes par table. Cliquez pour explorer et modifier les données.</div>
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>Table</th><th>Lignes</th><th style="text-align:right">Action</th></tr></thead>
+      <tbody>
+        {% for t in tables %}
+        <tr>
+          <td class="td-strong">{{ t.name }}</td>
+          <td class="td-mono">{{ t.count }}</td>
+          <td style="text-align:right"><a class="btn btn-ghost btn-sm" href="{{ url_for('table_page', table=t.name) }}">Ouvrir →</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="panel glass" style="margin-top:18px">
+  <div class="panel-title">Informations</div>
+  <div class="kv"><small>Fichier de base</small><code>{{ db_path }}</code></div>
+  <div class="kv"><small>Serveur NexFleet</small><code>http://127.0.0.1:5000 (API REST)</code></div>
+  <div class="kv"><small>Console</small><code>http://127.0.0.1:5001 (cette application)</code></div>
+</div>
+{% endblock %}

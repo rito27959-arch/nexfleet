@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Sauvegardes{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h3>Sauvegardes</h3><p>Sauvegarde complète de la base SQLite (copie instantanée), téléchargeable à tout moment.</p></div>
+  <div class="page-actions">
+    <button class="btn btn-primary btn-sm" id="backup-now">💾 Sauvegarder maintenant</button>
+  </div>
+</div>
+<div class="panel glass">
+  <div class="table-scroll">
+    <table class="data">
+      <thead><tr><th>Fichier</th><th>Taille</th><th>Date</th><th style="text-align:right">Action</th></tr></thead>
+      <tbody id="backup-list"></tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

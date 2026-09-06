@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NexFleet Console — {% block title %}Gestion{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <aside class="sidebar glass">
+    <div class="brand">
+      <div class="brand-ico">🛰️</div>
+      <div>
+        <strong>NexFleet</strong>
+        <small>Console</small>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="{{ url_for('overview') }}" class="nav-item {% if request.endpoint == 'overview' %}active{% endif %}">📊 Vue d'ensemble</a>
+      <a href="{{ url_for('tables_page') }}" class="nav-item {% if request.endpoint in ('tables_page','table_page') %}active{% endif %}">🗃️ Tables</a>
+      <a href="{{ url_for('sql_page') }}" class="nav-item {% if request.endpoint == 'sql_page' %}active{% endif %}">⚡ SQL</a>
+      <a href="{{ url_for('users_page') }}" class="nav-item {% if request.endpoint == 'users_page' %}active{% endif %}">👤 Utilisateurs</a>
+      <a href="{{ url_for('connections_page') }}" class="nav-item {% if request.endpoint == 'connections_page' %}active{% endif %}">🔌 Connexions</a>
+      <a href="{{ url_for('backups_page') }}" class="nav-item {% if request.endpoint == 'backups_page' %}active{% endif %}">💾 Sauvegardes</a>
+    </nav>
+    <div class="side-foot">
+      <span class="who">👤 {{ session.get('console_user') }}</span>
+      <a class="btn btn-ghost btn-sm" href="{{ url_for('logout') }}">Déconnexion</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <div id="toast-root"></div>
+  {% block scripts %}{% endblock %}
+  <script src="{{ url_for('static', filename='console.js') }}"></script>
+</body>
+</html>
